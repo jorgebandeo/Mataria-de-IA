@@ -85,11 +85,12 @@ vetor_de_matrizes ={'Mjob' : [['Mjob'     ,'at_home'     , 'health'  , 'other'  
                       ['services' ,None  , None  , None , 1   , 0.7],
                       ['teacher'  ,None  , None  , None , None, 1  ]]
                       } #vetor contem as matrizes de semelhança
-# similaridade matematica 
 
+# similaridade matematica 
 def similaridade(F1,F2):
     a = F1 - F2 if F1 - F2 >=0 else F2 - F1
     return 1-(a/100)
+# similaridade matrizial
 def similaridadeMatrizial(F1,F2, nome ):
     matriz = vetor_de_matrizes[nome]
     coluna = 0
@@ -101,7 +102,7 @@ def similaridadeMatrizial(F1,F2, nome ):
         if  matriz[i][0] == F2:
             linha = i
     return matriz[linha][coluna]
-
+# similaridade binaria
 def similaridadeBinaria(F1,F2):
     if F1 == F2:
         return 1.0
