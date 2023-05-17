@@ -1,6 +1,5 @@
-import csv
+
 import os
-import numpy as np
 import pandas as pd
 
 # Função para converter uma nota em formato numérico para o formato de notas americanas (A, B, C, D, F)
