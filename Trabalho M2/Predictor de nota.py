@@ -155,9 +155,14 @@ if __name__ == "__main__":
             
             simi = CalculadorDeSimilaridade(arquivo, sugestao)
             arquivo["G3"] = colunaG3
-            arquivo["similaridade"] = simi
+            arquivo["similaridadess"] = simi
+            simipor = []
+            for i in range(len(simi)):
+                simipor.append(str(simi[i]*100) + "%")
+            arquivo["similaridade"] = simipor
 
-            Or_arc = arquivo.sort_values(by="similaridade", ascending=False)
+            Or_arc = arquivo.sort_values(by="similaridadess", ascending=False)
+            Or_arc = Or_arc.drop('similaridadess', axis=1)
             print (sugestao, "Resultado de maior similaridade:  ", Or_arc["G3"][0])
             print (Or_arc[0:5])
             input("PQT")
