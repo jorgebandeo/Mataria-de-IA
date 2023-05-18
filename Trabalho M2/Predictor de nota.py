@@ -64,7 +64,7 @@ def SimilaridadeNumerica(F1, F2, max, min):
 # Função para calcular a similaridade booleana entre dois valores
 def SimilaridadeBooleana(F1, F2):
     a = 1 if F1 == F2 else 0
-    return 1 - a
+    return  a
 
 # Função para calcular a similaridade lógica entre dois valores
 def SimilaridadeLolica(F1, F2, valores):
@@ -82,20 +82,28 @@ def SimilaridadeLolica(F1, F2, valores):
 
 # Função para calcular a similaridade entre o DataFrame de arquivo e uma linha de predição
 def CalculadorDeSimilaridade(Arquivo, predict):
+
     colunas = Arquivo.columns.to_list()
     semelhanca = []
     pessom = 0
     for i in colunas:
         pessom += pesos[i]
+    linas = []
     for i in range(0, len(Arquivo.values)):
         somas = 0
+        coll =[]
         for j in colunas:
+            
             if 1 == TS[j]:
-                somas += pesos[j] * SimilaridadeNumerica(Arquivo[j][i], predict[j], maior(Arquivo,j), menor(Arquivo,j))
+                aux = pesos[j] * SimilaridadeNumerica(Arquivo[j][i], predict[j], maior(Arquivo,j), menor(Arquivo,j))
+                somas += aux
             elif 2 == TS[j]:
-                somas += pesos[j] * SimilaridadeBooleana(Arquivo[j][i], predict[j])
+                aux = pesos[j] * SimilaridadeBooleana(Arquivo[j][i], predict[j])
+                somas += aux
             else:
-                somas += pesos[j] * SimilaridadeLolica(Arquivo[j][i], predict[j], Arquivo[j].unique())
+                aux = pesos[j] * SimilaridadeLolica(Arquivo[j][i], predict[j], Arquivo[j].unique())
+                somas += aux
+            
         semelhanca.append(somas / pessom)
     return semelhanca
 
@@ -143,8 +151,8 @@ def menu1(sug):
 # Parte principal do código
 if __name__ == "__main__":
     # Leitura dos arquivos CSV e seleção das colunas relevantes
-    arquivo = pd.read_csv("Trabalho M2/Data set/student-mat.csv")
-    teste = pd.read_csv("Trabalho M2/Data set/datasetTestes.csv")
+    arquivo = pd.read_csv("Data set/student-mat.csv")
+    teste = pd.read_csv("Data set/datasetTestes.csv")
     colunaG3 = arquivo["G3"]
     arquivo = arquivo[["G2", "G1", "failures", "absences", "higher", "school", "schoolsup", "goout", "traveltime", "famrel", "sex"]]
     teste = teste[["G2", "G1", "failures", "absences", "higher", "school", "schoolsup", "goout", "traveltime", "famrel", "sex"]]
